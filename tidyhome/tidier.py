@@ -3,6 +3,8 @@ import inquirer
 import json
 import time
 import argparse
+import importlib.resources as pkg_resources
+import tidyhome
 
 
 def get_names():
@@ -17,7 +19,7 @@ def get_names():
 
 
 def get_tasks():
-    with open("tasks.json", "r") as f:
+    with pkg_resources.files(tidyhome).joinpath("tasks.json").open("r") as f:
         all_categories = json.load(f)
 
     category_selection = inquirer.prompt(
