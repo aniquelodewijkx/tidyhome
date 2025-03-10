@@ -10,7 +10,7 @@ pip install git+https://github.com/aniquelodewijkx/tidyhome.git
 ```
 
 ## 🧼 Usage
- You can run tidyhome from your cli with this command.
+ You can run tidyhome from your terminal with this command.
 
 ```sh
 tidyhome
