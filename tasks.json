@@ -1,0 +1,32 @@
+{
+  "general": [
+    "vacuum the floors and edges",
+    "do a load of laundry"
+  ],
+  "kitchen": [
+    "clean out the fridge (food and shelves)",
+    "clean exterior kitchen cabinets and handles",
+    "clean interior kitchen cabinets and drawers",
+    "clean kitchen counter and stove top",
+    "clean and organize fruit basket",
+    "do the dishes",
+    "clean the microwave oven"
+  ],
+  "living_room": [
+    "clean out the couch cushions",
+    "wipe down all living room surfaces"
+  ],
+  "dining room": [
+    "wipe down all dining room surfaces"
+  ],
+  "bedroom": [
+    "organize and clean the nightstand"
+  ],
+  "bathroom": [
+    "clean the sink and mirror",
+    "clean the toilet",
+    "mop bathroom and toilet floor",
+    "clean the shower",
+    "wipe all bathroom surfaces (washer, rack, etc.)"
+  ]
+}
