@@ -2,6 +2,7 @@ import random
 import inquirer
 import json
 import time
+import argparse
 
 
 def get_names():
@@ -50,6 +51,9 @@ def assign_tasks(names, tasks):
 
 
 def main():
+    parser = argparse.ArgumentParser(description="A random task assignment tool for tidying up your home")
+    args = parser.parse_args()
+
     names = get_names()
     tasks = get_tasks()
 
