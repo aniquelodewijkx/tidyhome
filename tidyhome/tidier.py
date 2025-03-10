@@ -21,7 +21,7 @@ def get_tasks():
 
     category_selection = inquirer.prompt(
         [inquirer.Checkbox('categories',
-                           message="Select all categories to include (Press <space> to select, Enter when finished).",
+                           message="What's getting tidied today? \n(Press <space> to select, Enter when finished)",
                            choices=all_categories)]
     )["categories"]
 
