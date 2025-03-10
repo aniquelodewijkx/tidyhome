@@ -1,6 +1,8 @@
 import random
 import inquirer
 import json
+import time
+
 
 def get_names():
     answer = inquirer.prompt([inquirer.Text('num_players', message="How many players are there?")])
@@ -12,31 +14,60 @@ def get_names():
     names = inquirer.prompt(questions)
     return names
 
-def get_task_categories():
-    with open("tasks.json", "r") as f:
-        task_categories = json.load(f)
-    return task_categories
 
-def get_task(all_categories: dict[str, list], category_selection: list[str]):
+def get_tasks():
+    with open("tasks.json", "r") as f:
+        all_categories = json.load(f)
+
+    category_selection = inquirer.prompt(
+        [inquirer.Checkbox('categories',
+                           message="Select all categories to include (Press <space> to select, Enter when finished).",
+                           choices=all_categories)]
+    )["categories"]
+
     possible_tasks = []
     for category, task_list in all_categories.items():
         if category in category_selection:
             possible_tasks.extend(task_list)
-    return random.choice(possible_tasks)
+
+    return possible_tasks
+
+
+def assign_tasks(names, tasks):
+    max_length = max(len(word) for word in tasks)
+    for _, name in names.items():
+        if not tasks:
+            print("All tasks have been assigned. Exiting.")
+            break
+        print(f"\n{name}:")
+        for i in range(15):
+            task = random.choice(tasks)
+            print("\r" + task.ljust(max_length), end="", flush=True)
+            time.sleep(0.1 + (i / 20) * 0.35)
+
+        print("\r" + task.ljust(max_length), flush=True)
+        tasks.remove(task)
+
+
+def main():
+    names = get_names()
+    tasks = get_tasks()
+
+    if tasks is None:
+        print("No tasks selected. Exiting.")
+        exit(0)
+
+    while tasks:
+        assign_tasks(names, tasks)
+        if not tasks:
+            print("All tasks have been assigned. Exiting.")
+            break
+        continue_prompt = inquirer.prompt(
+            [inquirer.Confirm('continue', message="Do you want to continue assigning tasks?", default=True)])
+        if not continue_prompt['continue']:
+            print("Exiting.")
+            break
+
 
 if __name__ == '__main__':
-    names = get_names()
-    categories = get_task_categories()
-    # task = get_task()
-
-    # display all keys from the tasks.json and ask the user to deselect any they don't want:
-    category_selection = inquirer.prompt(
-        [inquirer.Checkbox('categories', message="Select all categories to include (Press <space> to select, Enter when finished).", choices=categories)]
-    )
-
-    for _, name in names.items():
-        task = get_task(categories, category_selection["categories"])
-
-        print(f"Task for {name}:")
-        print(task, "\n")
-
+    main()
