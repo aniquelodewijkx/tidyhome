@@ -3,7 +3,7 @@ import inquirer
 import json
 import time
 import argparse
-import importlib.resources as pkg_resources
+import importlib.resources
 import tidyhome
 
 
@@ -19,9 +19,8 @@ def get_names():
 
 
 def get_tasks():
-    with pkg_resources.files(tidyhome).joinpath("tasks.json").open("r") as f:
+    with importlib.resources.open_text("tidyhome", "tasks.json") as f:
         all_categories = json.load(f)
-
     category_selection = inquirer.prompt(
         [inquirer.Checkbox('categories',
                            message="What's getting tidied today? \n(Press <space> to select, Enter when finished)",
