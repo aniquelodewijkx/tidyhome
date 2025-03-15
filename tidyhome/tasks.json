@@ -1,16 +1,19 @@
 {
   "general": [
     "vacuum the floors and edges",
-    "do a load of laundry"
+    "do a load of laundry",
+    "buy any necessary cleaning items"
   ],
   "kitchen": [
     "clean out the fridge (food and shelves)",
     "clean exterior kitchen cabinets and handles",
     "clean interior kitchen cabinets and drawers",
     "clean kitchen counter and stove top",
-    "clean and organize fruit basket",
+    "clean and organize counter top appliances",
     "do the dishes",
-    "clean the microwave oven"
+    "kitchen trolley (remove items, clean in&out, reorganize)",
+    "take out the glass and paper",
+    "go through all food and drinks"
   ],
   "living_room": [
     "clean out the couch cushions",
@@ -26,7 +29,11 @@
     "clean the sink and mirror",
     "clean the toilet",
     "mop bathroom and toilet floor",
+    "wipe all bathroom surfaces (washer, rack, etc.)",
+    "empty bathroom & toilet trash bins"
+  ],
+  "deep_clean": [
     "clean the shower",
-    "wipe all bathroom surfaces (washer, rack, etc.)"
+    "clean the microwave oven"
   ]
 }
