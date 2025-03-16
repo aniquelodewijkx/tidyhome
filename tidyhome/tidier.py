@@ -21,6 +21,7 @@ def get_tasks():
     with importlib.resources.open_text("tidyhome", "task_completions.csv") as f:
         tasks_df = pd.read_csv(f)
 
+    tasks_df["frequency"] = pd.to_timedelta(tasks_df["frequency"])
     tasks_df["last_completed"] = pd.to_datetime(tasks_df["last_completed"])
 
     categories = tasks_df["category"].unique().tolist()
