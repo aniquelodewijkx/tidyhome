@@ -1,11 +1,10 @@
 import random
 import inquirer
-import json
+import pandas as pd
 import time
 import argparse
 import importlib.resources
 import tidyhome
-
 
 def get_names():
     answer = inquirer.prompt([inquirer.Text('num_players', message="How many players are there?")])
@@ -19,24 +18,33 @@ def get_names():
 
 
 def get_tasks():
-    with importlib.resources.open_text("tidyhome", "tasks.json") as f:
-        all_categories = json.load(f)
+    with importlib.resources.open_text("tidyhome", "task_completions.csv") as f:
+        tasks_df = pd.read_csv(f)
+
+    categories = tasks_df["category"].unique().to_list()
     category_selection = inquirer.prompt(
         [inquirer.Checkbox('categories',
-                           message="What's getting tidied today? \n(Press <space> to select, Enter when finished)",
-                           choices=all_categories)]
+                           message="What's getting tidied today? \n(select: <space>, finish: <enter>)",
+                           choices=categories)]
     )["categories"]
 
     possible_tasks = []
-    for category, task_list in all_categories.items():
+    for tasks, category, frequency, last_completed in zip(tasks_df["task"], tasks_df["category"], tasks_df["frequency"], tasks_df["last_completed"]):
         if category in category_selection:
-            possible_tasks.extend(task_list)
+            if pd.Timestamp.now() - last_completed >= frequency:
+                possible_tasks.append(tasks)
+
+    if possible_tasks is None:
+        print("All tasks in categories selected have been completed recently. Exiting.")
+        return None
 
     return possible_tasks
 
 
-def assign_tasks(names, tasks):
+def assign_tasks(names, tasks) -> list[str]:
     max_length = max(len(word) for word in tasks)
+
+    given_tasks = []
     for _, name in names.items():
         if not tasks:
             print("All tasks have been assigned. Exiting.")
@@ -48,30 +56,50 @@ def assign_tasks(names, tasks):
             time.sleep(0.1 + (i / 20) * 0.35)
 
         print("\r" + task.ljust(max_length), flush=True)
+        given_tasks.append(task)
         tasks.remove(task)
+
+    return given_tasks
+
+def update_task_completion_dates(completed_tasks):
+    with importlib.resources.files(tidyhome).joinpath("task_completions.csv").open("r") as f:
+        tasks_df = pd.read_csv(f)
+
+    for task in completed_tasks:
+        tasks_df.loc[tasks_df["task"] == task, "last_completed"] = pd.Timestamp.now()
+
+    with importlib.resources.files(tidyhome).joinpath("task_completions.csv").open("w") as f:
+        tasks_df.to_csv(f, index=False)
 
 
 def main():
-    parser = argparse.ArgumentParser(description="A random task assignment tool for tidying up your home")
-    args = parser.parse_args()
+    # parser = argparse.ArgumentParser(description="A random task assignment tool for tidying up your home")
 
     names = get_names()
     tasks = get_tasks()
 
     if tasks is None:
-        print("No tasks selected. Exiting.")
         exit(0)
 
+    completed_tasks = []
     while tasks:
-        assign_tasks(names, tasks)
+        given_tasks = assign_tasks(names, tasks)
         if not tasks:
             print("All tasks have been assigned. Exiting.")
             break
+        completed_prompt = inquirer.prompt(
+            [inquirer.Checkbox('completed',
+                               message="Which tasks were completed?",
+                               choices=given_tasks)])
+        for completed_task in completed_prompt['completed']:
+            completed_tasks.append(completed_task)
         continue_prompt = inquirer.prompt(
             [inquirer.Confirm('continue', message="Do you want to continue assigning tasks?", default=True)])
         if not continue_prompt['continue']:
-            print("Exiting.")
+            print(f"Congratulations! You completed {len(completed_tasks)} today.")
             break
+
+    update_task_completion_dates(completed_tasks)
 
 
 if __name__ == '__main__':

@@ -1,0 +1,28 @@
+task,category,frequency,last_completed
+vacuum the floors and edges,general,7 days,2025-03-05
+do a load of laundry,general,1 days,2025-03-16
+buy any necessary cleaning items,general,7 days,2025-03-16
+clean all doorknobs and light switches,general,14 days,2025-03-05
+clean out the fridge (food and shelves),kitchen,21 days,2025-03-14
+clean exterior kitchen cabinets and handles,kitchen,14 days,2025-03-15
+clean interior kitchen cabinets and drawers,kitchen,14 days,2025-03-05
+clean kitchen counter and stove top,kitchen,1 days,2025-03-16
+clean and organize counter top appliances,kitchen,7 days,2025-03-01
+do the dishes,kitchen,1 days,2025-03-15
+"kitchen trolley (remove items, clean in&out, reorganize)",kitchen,14 days,2025-03-01
+take out the glass and paper,kitchen,7 days,2025-03-01
+go through all food and drinks,kitchen,7 days,2025-03-01
+empty and clean kit  chen sink,kitchen,1 days,2025-03-01
+clean out the couch cushions,living_room,14 days,2025-03-15
+wipe down all living room surfaces,living_room,7 days,2025-03-01
+wipe down all dining room surfaces,dining room,7 days,2025-03-01
+organize and clean the nightstand,bedroom,7 days,2025-03-01
+clean the sink and mirror,bathroom,7 days,2025-03-15
+clean the toilet,bathroom,7 days,2025-03-01
+mop bathroom and toilet floor,bathroom,7 days,2025-03-01
+"wipe all bathroom surfaces (washer, rack, etc.)",bathroom,7 days,2025-03-15
+empty bathroom & toilet trash bins,bathroom,7 days,2025-03-15
+clean the shower,deep_clean,14 days,2025-03-01
+clean the microwave oven,deep_clean,14 days,2025-03-01
+clean kitchen steam catcher,deep_clean,14 days,2025-03-01
+wipe down the blinds,deep_clean,14 days,2025-03-01
