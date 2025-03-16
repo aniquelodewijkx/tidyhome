@@ -21,7 +21,7 @@ def get_tasks():
     with importlib.resources.open_text("tidyhome", "task_completions.csv") as f:
         tasks_df = pd.read_csv(f)
 
-    categories = tasks_df["category"].unique().to_list()
+    categories = tasks_df["category"].unique().tolist()
     category_selection = inquirer.prompt(
         [inquirer.Checkbox('categories',
                            message="What's getting tidied today? \n(select: <space>, finish: <enter>)",
