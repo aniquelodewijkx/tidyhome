@@ -33,7 +33,7 @@ def get_tasks():
     possible_tasks = []
     for tasks, category, frequency, last_completed in zip(tasks_df["task"], tasks_df["category"], tasks_df["frequency"], tasks_df["last_completed"]):
         if category in category_selection:
-            if pd.Timestamp.now() - pd.Datetime(last_completed) >= frequency:
+            if pd.Timestamp.now() - last_completed >= frequency:
                 possible_tasks.append(tasks)
 
     if possible_tasks is None:
