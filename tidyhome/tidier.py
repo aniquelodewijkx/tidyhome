@@ -100,7 +100,7 @@ def main():
         continue_prompt = inquirer.prompt(
             [inquirer.Confirm('continue', message="Do you want to continue assigning tasks?", default=True)])
         if not continue_prompt['continue']:
-            print(f"Congratulations! You completed {len(completed_tasks)} today.")
+            print(f"Congratulations! You completed {len(completed_tasks)} task(s) today.")
             break
 
     if completed_tasks:
