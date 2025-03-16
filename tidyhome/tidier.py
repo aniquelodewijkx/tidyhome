@@ -94,15 +94,17 @@ def main():
             [inquirer.Checkbox('completed',
                                message="Which tasks were completed?",
                                choices=given_tasks)])
-        for completed_task in completed_prompt['completed']:
-            completed_tasks.append(completed_task)
+        if completed_prompt['completed'] is not None:
+            for completed_task in completed_prompt['completed']:
+                completed_tasks.append(completed_task)
         continue_prompt = inquirer.prompt(
             [inquirer.Confirm('continue', message="Do you want to continue assigning tasks?", default=True)])
         if not continue_prompt['continue']:
             print(f"Congratulations! You completed {len(completed_tasks)} today.")
             break
 
-    update_task_completion_dates(completed_tasks)
+    if completed_tasks:
+        update_task_completion_dates(completed_tasks)
 
 
 if __name__ == '__main__':
