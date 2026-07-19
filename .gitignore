@@ -1,0 +1,17 @@
+# virtual environments
+.venv/
+tidyenv/
+
+# python build artifacts
+__pycache__/
+*.py[cod]
+build/
+dist/
+*.egg-info/
+
+# IDE
+.idea/
+.vscode/
+
+# macOS
+.DS_Store
