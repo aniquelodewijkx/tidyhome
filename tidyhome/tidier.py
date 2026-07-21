@@ -161,8 +161,14 @@ def main():
     in_progress = {}  # name -> the task that player is currently working on
     session_log = []  # (name, task, completed) for every assignment this session
 
-    # Pull model: whoever finishes their task comes back and grabs the next one.
-    # Asking for a new task means your previous one is done.
+    # Everyone starts with a task; after that, whoever finishes theirs
+    # comes back and pulls the next one. Asking for a new task means
+    # your previous one is done.
+    for name in names:
+        if not tasks:
+            break
+        in_progress[name] = spin_task(name, tasks)
+
     while tasks:
         answer = inquirer.prompt(
             [inquirer.List('name',
